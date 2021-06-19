@@ -191,38 +191,9 @@ extension PreviewView: AVCaptureVideoDataOutputSampleBufferDelegate {
     
 }
 
-final class AVPreviewViewCoordinator: NSObject {
-    
-    private var bag: Set<AnyCancellable> = .init()
-    
-    override init() {
-        super.init()
-        backgroundExtractViewModel.$selectedSelectImage.sink { flag in
-            if flag {
-                // change for iOS
-                let docCtrl: NSDocumentController = .init()
-                let openPanel: NSOpenPanel = .init()
-                
-                openPanel.canChooseFiles = true
-                openPanel.allowsMultipleSelection = false
-                docCtrl.runModalOpenPanel(openPanel, forTypes: ["jpeg", "jpg"])
-                
-                backgroundExtractViewModel.selectedImageURL = openPanel.url
-            }
-        }
-        .store(in: &bag)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
 
 struct AVPreviewView: NSViewRepresentable {
-    
-    let coord: AVPreviewViewCoordinator = .init()
-    
+        
     func makeNSView(context: NSViewRepresentableContext<AVPreviewView>) -> PreviewView {
         PreviewView()
     }

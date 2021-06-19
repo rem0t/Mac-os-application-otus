@@ -10,7 +10,6 @@ import SwiftUI
 final class BackgroundExtractViewModel: ObservableObject {
     
     @Published var selectionSegment: Int = 0
-    @Published var selectedSelectImage: Bool = false
     @Published var selectedImageURL: URL?
     @Published var detectionValue: String?
 
@@ -32,13 +31,7 @@ struct ContentView: View {
             Text("Detection: \(viewModel.detectionValue ?? "")" )
                 .font(.title)
                 .frame(width: 852, height: 20, alignment: .center)
-            Button {
-                viewModel.selectedSelectImage = true
-            } label: {
-                Text("Select Image")
-            }
             .padding()
-            .background(Color.green)
             .foregroundColor(.white)
             
             Picker(selection: $viewModel.selectionSegment, label:
